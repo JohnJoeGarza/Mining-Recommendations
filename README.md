@@ -16,8 +16,8 @@ The code above will produce the following recommendations for the users Josh bas
 
 |Title   |     Rating|
 |:--------:|:-----------:|
-|Dodgeball            |3.77|
-|Lord of the Rings    |3.61|
-|Braveheart           |3.45|
-|Old School           |2.24|
-|Napolean Dynamite    |2.10|
+|Old School          | 3.90|
+|Dodgeball           | 3.05|
+|Lord of the Rings   | 3.01|
+|Braveheart          | 2.69|
+|Napolean Dynamite   | 2.44|
