@@ -1,6 +1,7 @@
 # Mining-Recommendations
 Project that uses different mining formulas to find relationships in the data of users and ratings to provide recommendations of different products such as movies and music. 
 
+##Python
 #### MovieRecommender.py
 Recommends movies based on the current ratings of the users. The current metrics implemented are **Pearsons Correlations Coefficient approximation**, **Manhattan Distance**, and **Euclidean Distance**.
 
