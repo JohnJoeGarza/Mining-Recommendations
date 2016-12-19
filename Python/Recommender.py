@@ -22,23 +22,41 @@ class Recommender:
         self.userid2name = {}
         self.productid2name = {}
         self.metric = metric
+        self.frequencies = {}
+        self.deviations = {}
         if self.metric == 'pearson' :
             self.fn = self.pearson
         elif self.metric == 'manhattan':
             self.fn = self.manhattan
         elif self.metric == 'euclidean':
             self.fn = self.euclidean
-
+            
         if type(data).__name__ == 'dict':
             self.data = data
-        
+            
+    def computeDeviations(self):
+        for ratings in self.data.values():
+            for(item, rating) in ratings.items():
+                self.frequencies.setdefault(item,{})
+                self.deviations.setdefault(item,{})
+                
+                for(item2, rating2) in ratings.items():
+                    if item != item2 and not isnan(rating) and not isnan(rating2):
+                        self.frequencies[item].setdefault(item2, 0)
+                        self.deviations[item].setdefault(item2, 0.0)
+                        self.frequencies[item][item2] += 1
+                        self.deviations[item][item2] += rating - rating2
+
+        for (item, ratings) in self.deviations.items():
+            for item2 in ratings:
+                ratings[item2] /= self.frequencies[item][item2]
+            
     def convertProductID2name(self, id):
         '''Given product id number return product name'''
         if id in self.productid2name:
             return self.productid2name[id]
         else:
             return id
-    
         
     def manhattan(self, rating1, rating2):
         '''Computes the Manhattan distance. Both rating1 and rating2
@@ -145,7 +163,6 @@ class Recommender:
         
         return recommendations[:self.n]
 
-
     def recommenderTable(self, username):
         '''Creates a table of recommendations for readability'''
         titles = []
@@ -158,6 +175,49 @@ class Recommender:
         dataTable = dataTable.reindex(columns = ['Title', 'Rating'])
         return dataTable.set_index('Title')
         
+    def weightedSlopeOne(self, userRatings):
+        '''Computes weighted Slope One of a user and returns a prediciton of 
+        what a user may rate items they haven't rated yet. Only returns the top
+        'n' items. 
+        userRatings should be a dictionary of the form {'item': rating,...} which
+        represents the items that one user has rated.
+        self.computeDeviations() method should be called before this method is
+        called or else this method will not work.'''
+        recommendations = {}
+        currentFreq = {}
+        for(userItem, userRating) in userRatings.items():
+            if not isnan(userRating ):
+                for(diffItem, diffRatings) in self.deviations.items():
+                    if (diffItem not in userRatings or isnan(userRatings[diffItem])) and userItem in self.deviations[diffItem]:
+                        freq = self.frequencies[diffItem][userItem]
+                        recommendations.setdefault(diffItem, 0.0)
+                        currentFreq.setdefault(diffItem, 0)
+                        
+                        recommendations[diffItem] += (diffRatings[userItem] + userRating) * freq
+                        currentFreq[diffItem] += freq
+
+        recommendations = [(self.convertProductID2name(k),
+                           v/currentFreq[k]) 
+                            for (k, v) in recommendations.items()]
+
+        recommendations.sort(key = lambda artistTuple: artistTuple[1],
+                             reverse = True)
+        
+        return recommendations[:self.n]
+
+    def slopeOneRecommenderTable(self, userRatings):
+        '''Creates a table of recommendations based on weighted slope one 
+        for readability'''
+        titles = []
+        ratings = []
+        aList = self.weightedSlopeOne(userRatings)
+        for recommend in aList:
+            titles.append(recommend[0])
+            ratings.append(recommend[1])
+        dataTable = pd.DataFrame({'Title':titles, 'Rating': ratings})
+        dataTable = dataTable.reindex(columns = ['Title', 'Rating'])
+        return dataTable.set_index('Title')
+    
     def changeMetric(self, metric):
         '''Changes the metric and updates self.fn'''
         self.metric = metric
@@ -180,7 +240,6 @@ class Recommender:
             self.__metric = metric
         else:
             print('Pearson Default set')
-            self.__metric = 'pearson'   
+            self.__metric = 'pearson'
 #End of Recommender class
 #------------------------------------------------------------------------------        
-
