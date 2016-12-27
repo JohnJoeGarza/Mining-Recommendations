@@ -293,8 +293,6 @@ class Recommender:
                     if (diffItem not in userRatings or isnan(userRatings[diffItem])) and userItem in self.simMatrix[diffItem]:
                         recommendations.setdefault(diffItem, 0.0)
                         denom.setdefault(diffItem, 0.0)
-#                        print(diffItem)
-#                        print(userItem)
                         recommendations[diffItem] += self.simMatrix[diffItem][userItem] * rating
                         denom[diffItem] += abs(self.simMatrix[diffItem][userItem])
                         
