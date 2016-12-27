@@ -66,7 +66,7 @@ r = Recommender(myUsers)
 r.computeSimilarityMatrix()
 r.cosineSimTable(myUsers['1'])
 ```
-Which will result in the following table of predictions that use '1' will rate items they haven't rated yet.
+Which will result in the following table of predictions that user '1' will rate items they haven't rated yet.
 
 |Title                                               |Rating|
 |:--------------------------------------------------:|:----:|                                                 
