@@ -57,6 +57,21 @@ Which will result in the following table of predicitons that user '1' will rate 
 |Someone Else's America (1995)                    |  5.391304|
 |Santa with Muscles (1996)                        |  5.380952|
 
-
 The L_MovieRatings file is from the MovieLens data set that can be found at www.grouplens.org.
 
+#####Cosine Similarity Prediction
+Inclued with the recommender class is a Cosine Similarity Prediction namely the cosineSimPredict() method. Similar to slope one's implementation, cosineSimPredict takes an argument of a particular user's ratings. I've used data similar to the L_MovieRatings but I have excluded the NaN values. 'myUsers' will represent this data. The computeSimilarityMatrix() needs to be called as the prediciton function relies on this matrix. A cosineSimTable() method has been added for readability of the recommendations.
+```python
+r = Recommender(myUsers)
+r.computeSimilarityMatrix()
+r.cosineSimTable(myUsers['1'])
+```
+Which will result in the following table of predictions that use '1' will rate items they haven't rated yet.
+
+|Title                                               |Rating|
+|:--------------------------------------------------:|:----:|                                                 
+|L.A. Confidential (1997)                            | 4.00 |
+|I Don't Want to Talk About It (De eso no se hab...  | 3.96 |
+|Waiting for Guffman (1996)                          | 3.90 |
+|Close Shave, A (1995)                               | 3.88 |
+|Titanic (1997)                                      | 3.88 |
