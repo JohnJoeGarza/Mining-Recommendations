@@ -75,3 +75,5 @@ Which will result in the following table of predictions that user '1' will rate 
 |Waiting for Guffman (1996)                          | 3.90 |
 |Close Shave, A (1995)                               | 3.88 |
 |Titanic (1997)                                      | 3.88 |
+
+Work inspired by Item-Based Collaborative Filtering Recommendation Algorithms by GroupLens Research Group/Army HPC Research Center. Their work is included in the documents folder. 
