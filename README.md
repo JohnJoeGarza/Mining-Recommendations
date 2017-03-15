@@ -60,9 +60,10 @@ Which will result in the following table of predicitons that user '1' will rate 
 The L_MovieRatings file is from the MovieLens data set that can be found at www.grouplens.org.
 
 ##### Cosine Similarity Prediction
-Included with the recommender class is a Cosine Similarity Prediction namely the cosineSimPredict() method. Similar to slope one's implementation, cosineSimPredict takes an argument of a particular user's ratings. I've used data similar to the L_MovieRatings but I have excluded the NaN values. 'myUsers' will represent this data. The computeSimilarityMatrix() needs to be called as the prediciton function relies on this matrix. A cosineSimTable() method has been added for readability of the recommendations.
+Included with the recommender class is a Cosine Similarity Prediction namely the cosineSimPredict() method. Similar to slope one's implementation, cosineSimPredict takes an argument of a particular user's ratings. I've used data similar to the L_MovieRatings but I have excluded the NaN values. 'myUsers' will represent this data. The computeSimilarityMatrix() and the computeAverages() method need to be called as the prediciton function relies on this matrix. A cosineSimTable() method has been added for readability of the recommendations.
 ```python
 r = Recommender(myUsers)
+r.computeAverages()
 r.computeSimilarityMatrix()
 r.cosineSimTable(myUsers['1'])
 ```
