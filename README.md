@@ -78,4 +78,6 @@ Which will result in the following table of predictions that user '1' will rate 
 |Titanic (1997)                                      | 3.88 |
 
 ## Acknowledgements
-Work inspired by Item-Based Collaborative Filtering Recommendation Algorithms by GroupLens Research Group/Army HPC Research Center. Their work is included in the documents folder. 
+Work inspired by Item-Based Collaborative Filtering Recommendation Algorithms by GroupLens Research Group/Army HPC Research Center. Their work is included in the documents folder.
+
+##More Work To Come
