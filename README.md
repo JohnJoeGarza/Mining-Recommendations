@@ -80,4 +80,4 @@ Which will result in the following table of predictions that user '1' will rate 
 ## Acknowledgements
 Work inspired by Item-Based Collaborative Filtering Recommendation Algorithms by GroupLens Research Group/Army HPC Research Center. Their work is included in the documents folder.
 
-##More Work To Come
+## More Work To Come
